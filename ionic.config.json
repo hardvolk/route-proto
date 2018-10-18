@@ -1,0 +1,7 @@
+{
+  "name": "route-proto",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
