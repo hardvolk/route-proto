@@ -1,0 +1,14 @@
+<ion-item>
+    <ion-label color="primary" floating>{{ label }}</ion-label>
+    <ion-input type="text" 
+            #txtInput
+            (keyup)="onKey(txtInput.value)"></ion-input>
+</ion-item>
+<ion-list *ngIf="showOptions" inset>
+    <button ion-item 
+            *ngFor="let option of optionList"
+            color="light"
+            (click)="setSelectedOption(option); txtInput.value = option.formatted_address">
+            {{ option.formatted_address }}
+    </button>
+</ion-list>
