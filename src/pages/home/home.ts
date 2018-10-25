@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomePage {
 
-  apiURL = 'api/directions/json?';
+  apiURL = 'https://maps.googleapis.com/maps/api/directions/json?';
   apiKey = 'AIzaSyBvhWBIl9uvPNBZBiTs_-rr_P43GAfQ8FA';
   loader: any;
   route: any;
