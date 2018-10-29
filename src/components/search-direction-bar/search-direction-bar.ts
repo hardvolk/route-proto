@@ -22,7 +22,7 @@ export class SearchDirectionBarComponent {
   @Input() label = 'Label';
   txtValue = '';
   showOptions = false;
-  apiURL = 'api/place/autocomplete/json?';
+  apiURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?';
   apiKey = 'AIzaSyBvhWBIl9uvPNBZBiTs_-rr_P43GAfQ8FA';
   query = '';
   optionList: PlaceResult[] = [];
