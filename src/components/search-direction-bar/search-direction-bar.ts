@@ -22,7 +22,7 @@ export class SearchDirectionBarComponent {
   @Input() label = 'Label';
   txtValue = '';
   showOptions = false;
-  apiURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
+  apiURL = 'api/place/autocomplete/json?';
   apiKey = 'AIzaSyBvhWBIl9uvPNBZBiTs_-rr_P43GAfQ8FA';
   query = '';
   optionList: PlaceResult[] = [];
@@ -43,12 +43,12 @@ export class SearchDirectionBarComponent {
   }
 
   getOptions() {
-    const uri = this.apiURL + 'query=' + encodeURI(this.txtValue) + '&key=' + this.apiKey;
+    const uri = this.apiURL + 'input=' + encodeURI(this.txtValue) + '&key=' + this.apiKey;
     this.http.get(uri)
       .subscribe(
         data => { 
           if ( data["status"] === "OK" ) {
-            this.optionList = data["results"];
+            this.optionList = data["predictions"];
             this.showOptions = true;
           } else {
             this.showOptions = false;

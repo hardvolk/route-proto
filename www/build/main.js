@@ -60,7 +60,7 @@ var HomePage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.http = http;
         this.loadingCtrl = loadingCtrl;
-        this.apiURL = 'https://maps.googleapis.com/maps/api/directions/json?';
+        this.apiURL = 'api/directions/json?';
         this.apiKey = 'AIzaSyBvhWBIl9uvPNBZBiTs_-rr_P43GAfQ8FA';
         this.distance = '';
         this.mts = 0;
@@ -93,11 +93,10 @@ var HomePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"C:\Users\cesar.ibarra\Projects\route-proto\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Route Calculator\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list>\n    <search-direction-bar label="Direccion de Inicio" #origin></search-direction-bar>\n    <search-direction-bar label="Direccion Final" #destination></search-direction-bar>\n  </ion-list>\n  \n  <ng-container *ngIf="distance !== \'\' ">\n    <p><strong>Distancia: </strong> {{ distance }} </p>\n    <p><strong>Tarifa: </strong> ${{ fare }} x Km </p>\n    <p><strong>Total: </strong> ${{ fare * (mts / 1000) }} </p>\n  </ng-container>\n\n  <div padding>\n    <button block \n            ion-button \n            [disabled]="origin.addressId === \'\' || destination.addressId === \'\' "\n            (click)="calculateRoute(origin.addressId, destination.addressId)">Calcular</button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\cesar.ibarra\Projects\route-proto\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */]) === "function" && _c || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -256,7 +255,7 @@ var SearchDirectionBarComponent = /** @class */ (function () {
         this.label = 'Label';
         this.txtValue = '';
         this.showOptions = false;
-        this.apiURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
+        this.apiURL = 'api/place/autocomplete/json?';
         this.apiKey = 'AIzaSyBvhWBIl9uvPNBZBiTs_-rr_P43GAfQ8FA';
         this.query = '';
         this.optionList = [];
@@ -273,11 +272,11 @@ var SearchDirectionBarComponent = /** @class */ (function () {
     };
     SearchDirectionBarComponent.prototype.getOptions = function () {
         var _this = this;
-        var uri = this.apiURL + 'query=' + encodeURI(this.txtValue) + '&key=' + this.apiKey;
+        var uri = this.apiURL + 'input=' + encodeURI(this.txtValue) + '&key=' + this.apiKey;
         this.http.get(uri)
             .subscribe(function (data) {
             if (data["status"] === "OK") {
-                _this.optionList = data["results"];
+                _this.optionList = data["predictions"];
                 _this.showOptions = true;
             }
             else {
@@ -301,11 +300,12 @@ var SearchDirectionBarComponent = /** @class */ (function () {
     ], SearchDirectionBarComponent.prototype, "label", void 0);
     SearchDirectionBarComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'search-direction-bar',template:/*ion-inline-start:"C:\Users\cesar.ibarra\Projects\route-proto\src\components\search-direction-bar\search-direction-bar.html"*/'<ion-item>\n    <ion-label color="primary" floating>{{ label }}</ion-label>\n    <ion-input type="text" \n            #txtInput\n            (keyup)="onKey(txtInput.value)"></ion-input>\n</ion-item>\n<ion-list *ngIf="showOptions" inset>\n    <button ion-item \n            *ngFor="let option of optionList"\n            color="light"\n            (click)="setSelectedOption(option); txtInput.value = option.formatted_address">\n            {{ option.formatted_address }}\n    </button>\n</ion-list>'/*ion-inline-end:"C:\Users\cesar.ibarra\Projects\route-proto\src\components\search-direction-bar\search-direction-bar.html"*/
+            selector: 'search-direction-bar',template:/*ion-inline-start:"C:\Users\cesar.ibarra\Projects\route-proto\src\components\search-direction-bar\search-direction-bar.html"*/'<ion-item>\n    <ion-label color="primary" floating>{{ label }}</ion-label>\n    <ion-input type="text" \n            #txtInput\n            (keyup)="onKey(txtInput.value)"></ion-input>\n</ion-item>\n<ion-list *ngIf="showOptions" inset>\n    <button ion-item \n            *ngFor="let option of optionList"\n            color="light"\n            (click)="setSelectedOption(option); txtInput.value = option.description">\n            {{ option.description }}\n    </button>\n</ion-list>'/*ion-inline-end:"C:\Users\cesar.ibarra\Projects\route-proto\src\components\search-direction-bar\search-direction-bar.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
     ], SearchDirectionBarComponent);
     return SearchDirectionBarComponent;
+    var _a;
 }());
 
 //# sourceMappingURL=search-direction-bar.js.map

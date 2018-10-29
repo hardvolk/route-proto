@@ -8,7 +8,7 @@
     <button ion-item 
             *ngFor="let option of optionList"
             color="light"
-            (click)="setSelectedOption(option); txtInput.value = option.formatted_address">
-            {{ option.formatted_address }}
+            (click)="setSelectedOption(option); txtInput.value = option.description">
+            {{ option.description }}
     </button>
 </ion-list>
